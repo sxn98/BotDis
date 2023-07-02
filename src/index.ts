@@ -6,10 +6,11 @@ import { Collection, GatewayIntentBits } from 'discord.js';
 import {createConnection, getRepository } from 'typeorm';
 import { GuildConfig } from './typeorm/entities/GuildConfig';
 import { io } from 'socket.io-client';
+import { AutoRoleConfig } from './typeorm/entities/AutoRoleConfig';
 
 
 
-const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent ] });
+const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildPresences ] });
 
 (async () => {
 
@@ -33,8 +34,9 @@ const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds, GatewayIn
     password: process.env.MYSQL_PASS,
     database: process.env.MYSQL_DATABASE,
     synchronize:true,
-    entities: [GuildConfig],
+    entities: [GuildConfig,AutoRoleConfig],
   })
+
 
   // socket.emit('guilds',{     // testare pentru a vedea daca aplicatia botului poate trimite mesaje catre server
   //   message:'hello world',
@@ -44,13 +46,22 @@ const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds, GatewayIn
 
  // client.prefix = process.env.PREFIX || client.prefix;
   const configRepo=getRepository(GuildConfig);
+  const autoroleconfigRepo=getRepository(AutoRoleConfig);
+
   const guildConfigs=await configRepo.find();
+  const autoroleConfigs=await autoroleconfigRepo.find();
+
   const configMappings=new Collection<string,GuildConfig>();
+  const autoroleconfigMappings=new Collection<string,AutoRoleConfig>();
+
   guildConfigs.forEach((config)=> configMappings.set(config.GuildID,config));
+  autoroleConfigs.forEach((config)=> autoroleconfigMappings.set(config.GuildID,config));
 
   client.configs=configMappings;
+  client.roleconfigs=autoroleconfigMappings
 
   console.log(client.configs);
+  console.log(client.roleconfigs);
 
   await registerCommands(client, '../commands');
   await registerEvents(client, '../events');
