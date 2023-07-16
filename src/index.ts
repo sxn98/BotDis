@@ -55,7 +55,7 @@ const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds, GatewayIn
   const autoroleconfigMappings=new Collection<string,AutoRoleConfig>();
 
   guildConfigs.forEach((config)=> configMappings.set(config.GuildID,config));
-  autoroleConfigs.forEach((config)=> autoroleconfigMappings.set(config.GuildID,config));
+  autoroleConfigs.forEach((config)=> autoroleconfigMappings.set(config.ID.toString(),config));
 
   client.configs=configMappings;
   client.roleconfigs=autoroleconfigMappings

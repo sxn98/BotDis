@@ -32,35 +32,43 @@ export default class PresenceUpdateEvent extends BaseEvent {
     }
 
     const gameId = await registeredGame(this.autoroleConfigRepository,newActivities,newPresence.guild?.id);
+    //console.log(gameId)
     //console.log('id-ul jocului gasit in bd este'+gameId)
-    if(gameId==null) return
 
-    if(newActivities!="" && gameId && newPresence?.member?.roles.cache.find(role=>role.id==gameId)===undefined){
-      console.log('\n########################################################################################################################\n');
-      console.log('Activitate veche: ' + oldActivities + '\nActivitate noua: ' + newActivities + '\nUser: ' + newPresence?.member?.displayName); // Daca se da rol, se va specifica in "Activitatea noua" care este acela
-      console.log('Se da rol la baiatu');
-      newPresence?.member?.roles.add(gameId).catch(e => { console.error(e); });
+    if(gameId.length==0) return
+    gameId.forEach(element => {
+      if(newActivities!="" && element && newPresence?.member?.roles.cache.find(role=>role.id==element)===undefined){
+        console.log('\n########################################################################################################################\n');
+        console.log('Activitate veche: ' + oldActivities + '\nActivitate noua: ' + newActivities + '\nUser: ' + newPresence?.member?.displayName +'\nRol: '+element); // Daca se da rol, se va specifica in "Activitatea noua" care este acela
+        console.log('Se da rol la baiatu');
+        newPresence?.member?.roles.add(element).catch(e => { console.error(e); });
+  
+      }
+    });
 
-    }else return;
+
   }
 }
 
 async function registeredGame(autoroleRep: Repository<AutoRoleConfig>, game: string,presenceGuildID: string | undefined) {
   game.toString();
-  const gasit=await autoroleRep.findOneBy({
+  const gasit=await autoroleRep.findBy({
     GuildID:presenceGuildID,
     ActivityName:game,
   });
-  // console.log(gasit)
+  //console.log(gasit)
   // console.log(gasit?.ActivityName.toString().toLowerCase(),game.toString().toLowerCase())
-
-  try {
-    if ((game != null && game != undefined) && gasit?.ActivityName.toString().toLowerCase() === game.toString().toLowerCase()) {		
-      return gasit.RoleID;
-  }
-  } catch (error) {
-    console.log(error)
-  }
+  var roluriReturnate:string[]=[]
+  gasit.forEach(element => {
+    try {
+      if ((game != null && game != undefined) && element.ActivityName.toString().toLowerCase() === game.toString().toLowerCase()) {		
+        //return element.RoleID;
+        roluriReturnate.push(element.RoleID)
+    }
+    } catch (error) {
+      console.log(error)
+    }
+  });
   
-  return false;
+  return roluriReturnate;
 }
