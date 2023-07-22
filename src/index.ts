@@ -25,6 +25,24 @@ const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds, GatewayIn
     // console.log('DUPA UPDATE')
     // console.log(client.configs)
   })
+  socket.on('autoRoleAdd',(config:AutoRoleConfig)=>{
+    console.log('configul adaugat')
+    console.log(config)
+    client.roleconfigs.set(config.ID.toString(),config)
+    console.log('rezultat ramas')
+    console.log(client.roleconfigs)
+  })
+  socket.on('autoRoleDelete',(config)=>{// nu putem transforma eficient daca este de tip AutoRoleConfig
+    const betterConfig=Object.assign({},...config) // nu putem selecta ceva specific din config usor deoarece este primit ca un array of object, astfel, il transformam intr-un object
+    console.log('rezultat sters')
+    console.log(betterConfig)
+
+    client.roleconfigs.delete(betterConfig.ID.toString())
+
+    console.log('configuri ramase')
+    console.log(client.roleconfigs)
+    
+  })
 
   await createConnection({
     type: 'mysql',
