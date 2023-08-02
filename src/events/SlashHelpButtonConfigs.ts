@@ -78,7 +78,6 @@ export default class SlashHelpButtonConfigs extends BaseEvent {
       .setDescription('List of all roles that will be given when a app is used/played by a user')
       currentGuildAutoRole.forEach(element=> embed.addFields({name:element.ActivityName,value:`<@&${element.RoleID}>`,inline:true}))
 
-      
       await interaction.reply({
         embeds:[embed],
         ephemeral:true,

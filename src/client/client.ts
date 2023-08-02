@@ -3,6 +3,7 @@ import BaseEvent from '../utils/structures/BaseEvent';
 import BaseCommand from '../utils/structures/BaseCommand';
 import { GuildConfig } from '../typeorm/entities/GuildConfig';
 import { AutoRoleConfig } from '../typeorm/entities/AutoRoleConfig';
+import { LogConfig } from '../typeorm/entities/LogConfig';
 
 export default class DiscordClient extends Client {
 
@@ -11,7 +12,7 @@ export default class DiscordClient extends Client {
   private _prefix: string = '!';
   private _configs=new Collection<string,GuildConfig>();
   private _roleconfigs=new Collection<string,AutoRoleConfig>();
-
+  private _logconfigs=new Collection<string,LogConfig>()
 
   constructor(options: ClientOptions) {
     super(options);
@@ -29,11 +30,17 @@ export default class DiscordClient extends Client {
   get roleconfigs(){
     return this._roleconfigs;
   }
+  get logconfigs(){
+    return this._logconfigs;
+  }
 
   set configs(guildConfigs:Collection<string,GuildConfig>) {
     this._configs=guildConfigs;
   }
   set roleconfigs(autoroleConfigs:Collection<string,AutoRoleConfig>){
     this._roleconfigs=autoroleConfigs;
+  }
+  set logconfigs(logConfigs:Collection<string,LogConfig>){
+    this._logconfigs=logConfigs
   }
 }
