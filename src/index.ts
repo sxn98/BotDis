@@ -55,6 +55,13 @@ const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds, GatewayIn
     
   })
 
+  socket.on('logUpdate',(config)=>{
+    console.log(config)
+    console.log('logUpdate')
+    client.logconfigs.set(config.GuildID,config)
+    console.log(client.logconfigs)
+  })
+
   await createConnection({
     type: 'mysql',
     host: process.env.MYSQL_HOST,

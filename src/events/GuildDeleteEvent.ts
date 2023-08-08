@@ -24,22 +24,32 @@ export default class GuildDeleteEvent extends BaseEvent {
     const logConfig=await this.guildLogRepository.findOneBy({
       GuildID:guild.id
   })
+  const autoroleconfig=await this.guildAutoRoleRepository.findBy({
+    GuildID:guild.id
+  })
     // const autoroleConfig=await this.guildAutoRoleRepository.findOneBy({
     //   GuildID:guild.id
     // })
     if(config){
       
-      console.log('(CONFIG) am fost dat afara din '+guild.name)
+      //console.log('(CONFIG) am fost dat afara din '+guild.name)
       client.configs.delete(guild.id)
       this.guildConfigRepository.delete({GuildID:guild.id})
-      console.log(client.configs)
+      //console.log(client.configs)
     } 
     if(logConfig){
       
-      console.log('(LOG) am fost dat afara din '+guild.name)
+      //console.log('(LOG) am fost dat afara din '+guild.name)
       client.logconfigs.delete(guild.id)
       this.guildLogRepository.delete({GuildID:guild.id})
-      console.log(client.logconfigs)
+      //console.log(client.logconfigs)
+    }
+
+    if(autoroleconfig){
+      //console.log('(AUTOROLE) am fost dat afara din '+guild.name)
+      autoroleconfig.forEach(element=> client.roleconfigs.delete(element.ID.toString()))
+      this.guildAutoRoleRepository.delete({GuildID:guild.id})
+      //console.log(client.roleconfigs)
     }
   }
 }
