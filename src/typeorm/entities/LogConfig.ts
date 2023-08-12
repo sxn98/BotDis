@@ -21,9 +21,6 @@ export class LogConfig{
     @Column({name:'nickname_changes',default:false})
     NicknameChanges:boolean;
 
-    @Column({name:'self_del_edit_message',default:false})
-    SelfDeletedEditedMessage:boolean;
-
     @Column({name:'user_forcefully_disconnected',default:false})
     UserForcefullyDisconnected:boolean;
 
