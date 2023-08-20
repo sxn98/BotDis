@@ -2,7 +2,7 @@ require('dotenv').config();
 import { registerCommands, registerEvents } from './utils/registry';
 //import config from '../slappey.json';
 import DiscordClient from './client/client';
-import { Collection, GatewayIntentBits } from 'discord.js';
+import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import {createConnection, getRepository } from 'typeorm';
 import { GuildConfig } from './typeorm/entities/GuildConfig';
 import { io } from 'socket.io-client';

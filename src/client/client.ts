@@ -9,7 +9,7 @@ export default class DiscordClient extends Client {
 
   private _commands = new Collection<string, BaseCommand>();
   private _events = new Collection<string, BaseEvent>();
-  private _prefix: string = '!';
+  private _prefix: string = '.';
   private _configs=new Collection<string,GuildConfig>();
   private _roleconfigs=new Collection<string,AutoRoleConfig>();
   private _logconfigs=new Collection<string,LogConfig>()
