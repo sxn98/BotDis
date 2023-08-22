@@ -28,15 +28,12 @@ export default class KickCommand extends BaseCommand {
     }
 
     if(!isMember){ // verifica daca exista pe sv
-      message.channel.send("User was not found")
-     .then(msg=>{
-       setTimeout(()=> msg.delete(), 3000)
-     });
-     return
+      message.author.send(`User was not found, try to tag the user (ex: <@${message.author.id}>)`)
+      return
     } 
 
     if(message.author.id === targetID){ // verifica sa nu iti dai singur kick
-      message.author.send("De ce vrei sa iti dai kick singur?")
+      message.author.send("Why would you want to kick yourself?")
       return
     }
 

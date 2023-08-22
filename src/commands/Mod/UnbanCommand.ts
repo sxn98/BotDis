@@ -26,7 +26,7 @@ export default class UnbanCommand extends BaseCommand {
     const bannedMember=await (await message.guild?.bans.fetch()!).has(targetID)
 
     if(!bannedMember){
-      message.author.send('The user is not banned')
+      message.author.send(`The user is not banned or the id provided is invalid, try to provide a valid ID (ex: your user id is ${message.author.id}. It can be found by right clicking a user and click on "Copy User ID"`)
       return
     }
 

@@ -54,7 +54,7 @@ export default class SlashHelpButtonConfigs extends BaseEvent {
 
     if(interaction.customId=='discordCommands'){
       const currentGuildConfig=client.configs.filter(c=>c.GuildID==interaction.guildId!).get(`${interaction.guildId}`)
-      
+
       const embed=new EmbedBuilder()
       .setTitle('Written custom commands')
       .setDescription('List of commands that are available for administrators to write, for the commands to work, I must have administration privilege!. In case of an error, additional information will be sent in your dm'+' s')
@@ -68,7 +68,7 @@ export default class SlashHelpButtonConfigs extends BaseEvent {
         {name:'Timeout command',value:`${currentGuildConfig?.prefix}timeout (tagged user) (minutes) [reason]`},
         {name:'Remove timeout command',value:`${currentGuildConfig?.prefix}removeTimeout (tagged user) [reason]`},
       )
-      .setFooter({text:'aaaaaaaaaaaaaaaa'})
+
       await interaction.reply({
         embeds:[embed],
         ephemeral:true,

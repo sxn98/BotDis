@@ -22,11 +22,8 @@ export default class RemoveTimeoutCommand extends BaseCommand {
 
     
     if(!isMember){
-      message.channel.send("User was not found")
-     .then(msg=>{
-       setTimeout(()=> msg.delete(), 3000)
-     });
-     return
+      message.author.send(`User was not found, try to tag the user (ex: <@${message.author.id}>)`)
+      return
     }
 
     if(message.author.id === targetID){ // verifica sa nu iti dai singur remove timeout

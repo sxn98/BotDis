@@ -25,18 +25,15 @@ export default class BanCommand extends BaseCommand {
       message.author.send("Specificati un motiv pentru ban")
       return
     }
-    
+
     if(Number.parseFloat(args[1])<0 || Number.parseFloat(args[1])>7 || Number.isNaN(Number.parseFloat(args[1]))){
       message.author.send("Specificati mesajele user-ului tinta din ultimele cate zile doriti sa fie sterse, exprimat in zile, intre 0-7")
       return
     }
 
     if(!isMember){
-      message.channel.send("User was not found")
-     .then(msg=>{
-       setTimeout(()=> msg.delete(), 3000)
-     });
-     return
+      message.author.send("User was not found")
+      return
     }
 
     if(message.author.id === targetID){ // verifica sa nu iti dai singur ban
