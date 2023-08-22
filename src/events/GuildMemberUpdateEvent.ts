@@ -9,6 +9,9 @@ export default class GuildMemberUpdateEvent extends BaseEvent {
   }
   
   async run(client: DiscordClient, oldMember: GuildMember, newMember: GuildMember) {
+    
+    if(oldMember.nickname===newMember.nickname) return;
+
     const config = client.logconfigs.get(oldMember.guild?.id!);
     const channel=oldMember.guild?.channels.cache.get(config?.LogChannel!) as TextChannel
 
