@@ -15,13 +15,19 @@ export default class SlashHelp extends BaseEvent {
       // var rolesObject: any[]=[];
       // interaction.guild?.roles.cache.forEach(role=>rolesObject.push({'ID':role.id,'Name':role.name}))
       // console.log(rolesObject.find(el=>el.ID=='1130175404985040976'))
-
+      const currentGuildConfig=client.configs.filter(c=>c.GuildID==interaction.guildId!).get(`${interaction.guildId}`)
 
 
       const embed=new EmbedBuilder()
       .setTitle('Help')
       .setDescription('List of help commands and functions, click a button for more informations')
-
+      .addFields(
+        {name:'Ban command',value:`${currentGuildConfig?.prefix}ban (tagged user) (days of message history deleted) [reason]`},
+        {name:'Unban command',value:`${currentGuildConfig?.prefix}unban (user id) [reason]`},
+        {name:'Kick command',value:`${currentGuildConfig?.prefix}kick (tagged user) [reason]`},
+        {name:'Timeout command',value:`${currentGuildConfig?.prefix}timeout (tagged user) (minutes) [reason]`},
+        {name:'Remove timeout command',value:`${currentGuildConfig?.prefix}removeTimeout (tagged user) [reason]`},
+      )
       const butoane ={
         "type":1,
         "components":[

@@ -16,5 +16,6 @@ export class GuildConfig{
     @Column({name:'welcome_channel_id',nullable:true})
     WelcomeChannelID:string;
 
-
+    @Column({name:'welcome_channel_string', nullable:true})
+    WelcomeChannelString:string
 }
