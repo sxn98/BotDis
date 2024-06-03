@@ -1,3 +1,4 @@
-Partea de backend a programului de dashboard+bot <br/>
-Construit in principal cu typescript si nestjs <br/>
-Porniti cu "npm run start:dev"
+Partea bot-ului a programului <br/>
+Construit in principal cu typescript <br/>
+Contine comenzile bot-ului <br/>
+Porniti cu "npm run dev"
