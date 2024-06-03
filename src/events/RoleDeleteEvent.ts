@@ -15,12 +15,14 @@ export default class RoleDeleteEvent extends BaseEvent {
   async run(client: DiscordClient, role: Role) {
     const gasit= client.roleconfigs.find(element=> element.RoleID==role.id)
 
+
     if(gasit) {
       client.roleconfigs.delete(gasit.ID.toString())
       this.guildAutoRoleRepository.delete({ID:gasit.ID})
       console.log(client.roleconfigs)
+      console.log('s-a gasit rolul in lista de autorole, se sterge')
     }
-    else console.log('nothing here')
+    else console.log(`nu s-a gasit rolul sters in lista de autorole`)
 
     
   }

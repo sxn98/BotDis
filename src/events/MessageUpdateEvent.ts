@@ -22,7 +22,7 @@ export default class MessageUodateEvent extends BaseEvent {
     }else{
       const embed=new EmbedBuilder()
       .setTitle(`Edited Message`)
-      .setDescription(`Message send by <@${oldMessage.author.id}> written in channel <#${oldMessage.channelId}> was edited at <t:${newMessage.createdTimestamp}>`) // transformam date-ul in format unix pentru a fi creat intr-un timestamp vizibil pentru oricare zona geografica
+      .setDescription(`Message send by <@${oldMessage.author.id}> written in channel <#${oldMessage.channelId}> was edited at <t:${Math.floor(newMessage.createdAt.getTime()/1000)}>`) // transformam date-ul in format unix pentru a fi creat intr-un timestamp vizibil pentru oricare zona geografica
       .addFields(
         {name:'Original Message:',value:`${oldMessage.content ? oldMessage.content: "**The message had no written content**"}`},
         {name:'Edited message:',value:`${newMessage.content ? newMessage.content: "**The edited message has no written content**"}`}

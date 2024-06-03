@@ -1,6 +1,5 @@
 require('dotenv').config();
 import { registerCommands, registerEvents } from './utils/registry';
-//import config from '../slappey.json';
 import DiscordClient from './client/client';
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import {createConnection, getRepository } from 'typeorm';

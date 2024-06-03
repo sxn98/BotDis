@@ -2,9 +2,13 @@
 import { EmbedBuilder, GuildMember, TextChannel } from 'discord.js';
 import BaseEvent from '../utils/structures/BaseEvent';
 import DiscordClient from '../client/client';
+import { getRepository } from 'typeorm';
+import { LogConfig } from '../typeorm/entities/LogConfig';
 
 export default class GuildMemberUpdateEvent extends BaseEvent {
-  constructor() {
+  constructor(
+    private readonly guildLogRepository=getRepository(LogConfig)
+  ) {
     super('guildMemberUpdate');
   }
   
@@ -12,10 +16,11 @@ export default class GuildMemberUpdateEvent extends BaseEvent {
     
     if(oldMember.nickname===newMember.nickname) return;
 
+    const isEnabled =await this.guildLogRepository.findOneBy({GuildID:oldMember.guild?.id})
     const config = client.logconfigs.get(oldMember.guild?.id!);
     const channel=oldMember.guild?.channels.cache.get(config?.LogChannel!) as TextChannel
 
-    if(!channel){
+    if(isEnabled?.NicknameChanges == false || !channel){
       return
     }else{
       const embed=new EmbedBuilder()

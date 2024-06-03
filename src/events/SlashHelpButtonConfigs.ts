@@ -86,7 +86,7 @@ export default class SlashHelpButtonConfigs extends BaseEvent {
         {name:'Server ID',value:`${currentGuildConfig?.GuildID}`},
         {name:'Prefix',value:`${currentGuildConfig?.prefix}`},
         {name:'Welcome Channel',value:`${interaction.guild?.channels.cache.find(channel=>channel.id==currentGuildConfig?.WelcomeChannelID)?.id==undefined ? 'Channel was not set' : "<#"+interaction.guild?.channels.cache.find(channel=>channel.id==currentGuildConfig?.WelcomeChannelID)?.id+">"}`},
-        {name:'Welcome Text', value:`Welcome (tagged user)`}
+        {name:'Welcome Text', value:currentGuildConfig?.WelcomeChannelString || `Welcome (tagged user)`}
       )
       await interaction.reply({
         embeds:[embed],
